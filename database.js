@@ -14,7 +14,7 @@ const cliente = new Client({
     port: 5432
 });
 
-async function getData(id, clientCache){
+async function getData(id){
     
     try{
         console.log("Iniciando conexão com postgresql...")
@@ -23,12 +23,7 @@ async function getData(id, clientCache){
         const resultado = await cliente.query("SELECT * FROM produtos where id = '"+id+"' ")
         console.log(resultado.rows)
 
-        client.set("clientCache", JSON.stringify(resultado.rows), function(err, resp){
-            if(err) throw err;
-            console.log(resp);
-        })
-
-        client.setex("clientCache", 60, JSON.stringify(resultado.rows), function(err, resp){
+        client.setex(id, 60, JSON.stringify(resultado.rows), function(err, resp){
             if(err) throw err;
             console.log(resp);
         }); 
