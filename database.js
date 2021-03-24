@@ -1,4 +1,10 @@
 const Client = require('pg').Client
+const redis = require("redis");
+const client = redis.createClient({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT
+});
+
 
 const cliente = new Client({
     user: 'postgres',
@@ -8,17 +14,26 @@ const cliente = new Client({
     port: 5432
 });
 
-async function getData(){
+async function getData(id, clientCache){
+    
     try{
         console.log("Iniciando conexão com postgresql...")
         await cliente.connect()
         console.log("Ok")
-        const resultado = await cliente.query("SELECT * FROM produtos")
-        console.table(resultado.rows)
+        const resultado = await cliente.query("SELECT * FROM produtos where id = '"+id+"' ")
+        console.log(resultado.rows)
+
+        client.set("clientCache", JSON.stringify(resultado.rows), function(err, resp){
+            if(err) throw err;
+            console.log(resp);
+        })
+
+        client.setex("clientCache", 60, JSON.stringify(resultado.rows), function(err, resp){
+            if(err) throw err;
+            console.log(resp);
+        }); 
     }catch(ex){
         console.log("Error" + ex)
-    }finally{
-        await cliente.end()
     }
 }
 
