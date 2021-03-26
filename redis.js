@@ -34,22 +34,24 @@ function setKey(chave, val){
             val = JSON.stringify(val)
         }
         client.set(chave, val)
+        console.log("Adicionado com sucesso!")
 }
 
 function delKey(chave){
     client.del(chave, function(err, resp){
             if(err) throw err;
             console.log(resp);
+            console.log("Deletado com sucesso!")
          });
 }
 
-function setTime(chave, val, tempo = 30){
+function setTime(chave, val, tempo = 3600){
         if(typeof val == 'object'){
             val = JSON.stringify(val)
         }
         client.set(chave, val)
         client.expire(chave, tempo)
-    
+        console.log("Chave com tempo de experiração setado com sucesso!")
 }
 
 
