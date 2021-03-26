@@ -49,9 +49,8 @@ function setTime(chave, val, tempo = 3600){
         if(typeof val == 'object'){
             val = JSON.stringify(val)
         }
-        client.set(chave, val)
-        client.expire(chave, tempo)
-        console.log("Chave com tempo de experiração setado com sucesso!")
+        client.setex(chave, val, tempo)
+        console.log("Chave com tempo de expiração setado com sucesso!")
 }
 
 

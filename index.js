@@ -3,14 +3,14 @@ const database_redis = require('./redis');
 const database = require('./database');
 
 
-//database_redis.setKey(2, "Produto: Monitor JS, preco: 800")
-//batabase_redis.setTime(10, 15, "Produto: Gabinete Aigo, Preco: 350")
-//database_redis.getKey(1)
-//database_redis.delKey(2)
+//database_redis.setKey(6, "Produto: Monitor JS, preco: 800")
+//database_redis.setTime(6, 15, "Produto: Gabinete Aigo, Preco: 350")
+//database_redis.getKey(3)
+//database_redis.delKey(6)
 
-//database.getData(4)
-//database.inserirProduto("Mouse Y", 68)
-//database.updateProduto(90, "Mouse X")
-//database.delProduto(2)
+//database.getData(3)
+//database.inserirProduto("Mouse XSS",95)
+//database.updateProduto(200, "Mouse X")
+//database.delProduto(14)
 
 
